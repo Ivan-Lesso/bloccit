@@ -1,6 +1,8 @@
 module.exports = {
-  init(app){
+  init(app) {
     const staticRoutes = require("../routes/static");
+    const marcoRoutes = require("../routes/marco");
+    app.use(marcoRoutes);
     app.use(staticRoutes);
   }
 }
