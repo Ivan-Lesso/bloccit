@@ -22,7 +22,7 @@ module.exports = {
  deleteComment(req, callback){
    return Comment.findById(req.params.id)
    .then((comment) => {
-     const authorized = new Authorizer(req.user, comment).destroy();
+     const authorized = req.user?new Authorizer(req.user, comment).destroy():false;
 
      if(authorized){
        comment.destroy();
