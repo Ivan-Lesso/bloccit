@@ -6,7 +6,7 @@ module.exports = {
     let role, id, email;
 
 // #3
-    function middleware(req,res,next){
+    function middleware(req,res,next) {
 
 // #4
       role = req.body.role || role;

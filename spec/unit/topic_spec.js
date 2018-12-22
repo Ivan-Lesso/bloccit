@@ -101,7 +101,8 @@ describe("Post", () => {
         title: "Getposts post test",
         description: "Getposts post description",
         body: "Getposts post body",
-        topicId: this.post.id
+        topicId: this.post.id,
+        userId: this.user.id
       })
       .then((newPost) => {
         this.topic.getPosts()

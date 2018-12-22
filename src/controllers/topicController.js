@@ -1,5 +1,5 @@
 //#1
- const topicQueries = require("../db/queries.topics.js");
+const topicQueries = require("../db/queries.topics.js");
 const Authorizer = require("../policies/topic");
 
  module.exports = {
@@ -64,7 +64,6 @@ const Authorizer = require("../policies/topic");
   },
   destroy(req, res, next) {
 
-// #1
     topicQueries.deleteTopic(req, (err, topic) => {
       if(err){
         res.redirect(err, `/topics/${req.params.id}`)
