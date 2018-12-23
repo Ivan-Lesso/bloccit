@@ -3,7 +3,7 @@ const Topic = require("../../src/db/models").Topic;
 const Post = require("../../src/db/models").Post;
 const User = require("../../src/db/models").User;
 
-describe("Post", () => {
+describe("Topic", () => {
 
   beforeEach((done) => {
     this.topic;
@@ -12,7 +12,6 @@ describe("Post", () => {
 
     sequelize.sync({force: true}).then((res) => {
 
-// #2
       User.create({
         email: "starman@tesla.com",
         password: "Trekkie4lyfe"
@@ -20,12 +19,10 @@ describe("Post", () => {
       .then((user) => {
         this.user = user; //store the user
 
-// #3
         Topic.create({
           title: "Expeditions to Alpha Centauri",
           description: "A compilation of reports from recent visits to the star system.",
 
-// #4
           posts: [{
             title: "My first visit to Proxima Centauri b",
             body: "I saw some rocks.",
@@ -33,7 +30,6 @@ describe("Post", () => {
           }]
         }, {
 
-// #5
           include: {
             model: Post,
             as: "posts"

@@ -65,13 +65,10 @@ describe("Vote", () => {
     });
   });
 
-  // #1
   describe("#create()", () => {
 
-// #2
     it("should create an upvote on a post for a user", (done) => {
 
-// #3
       Vote.create({
         value: 1,
         postId: this.post.id,
@@ -79,7 +76,6 @@ describe("Vote", () => {
       })
       .then((vote) => {
 
-// #4
         expect(vote.value).toBe(1);
         expect(vote.postId).toBe(this.post.id);
         expect(vote.userId).toBe(this.user.id);
@@ -92,7 +88,6 @@ describe("Vote", () => {
       });
     });
 
-// #5
     it("should create a downvote on a post for a user", (done) => {
       Vote.create({
         value: -1,
@@ -112,7 +107,6 @@ describe("Vote", () => {
       });
     });
 
-// #6
     it("should not create a vote without assigned post or user", (done) => {
       Vote.create({
         value: 1
@@ -130,6 +124,29 @@ describe("Vote", () => {
 
         expect(err.message).toContain("Vote.userId cannot be null");
         expect(err.message).toContain("Vote.postId cannot be null");
+        done();
+
+      })
+    });
+
+    it("should not create a vote with a value of something other than -1 or 1", (done) => {
+      Vote.create({
+        value: 2,
+        postId: this.post.id,
+        userId: this.user.id
+      })
+      .then((vote) => {
+
+       // the code in this block will not be evaluated since the validation error
+       // will skip it. Instead, we'll catch the error in the catch block below
+       // and set the expectations there
+
+        done();
+
+      })
+      .catch((err) => {
+
+        expect(err.message).toContain("Validation error");
         done();
 
       })

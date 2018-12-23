@@ -144,6 +144,41 @@ describe("routes : votes", () => {
           }
         );
       });
+
+      it("should not create more than one vote for per user per post", (done) => {
+        const options = {
+          url: `${base}${this.topic.id}/posts/${this.post.id}/votes/upvote`
+        };
+        request.get(options,
+          (err, res, body) => {
+            Vote.findOne({
+              where: {
+                userId: this.user.id,
+                postId: this.post.id
+              }
+            })
+            .then((vote) => {               // confirm that an upvote was created
+              request.get(options,
+                (err, res, body) => {
+                  Vote.findAll({
+                    where: {
+                      userId: this.user.id,
+                      postId: this.post.id
+                    }
+                  })
+                  .then((allVotes) => {
+                    expect(allVotes.length).toBe(1);
+                  });
+                });
+              done();
+            })
+            .catch((err) => {
+              console.log(err);
+              done();
+            });
+          }
+        );
+      });
     });
 
     describe("GET /topics/:topicId/posts/:postId/votes/downvote", () => {
