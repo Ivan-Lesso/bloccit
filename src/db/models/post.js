@@ -52,6 +52,14 @@ module.exports = (sequelize, DataTypes) => {
         postId: post.id
       });
     });
+    Post.addScope("favoritedPosts", (userId) => {
+      return {
+        include: [
+          {model: models.Favorite, as: "favorites", required: true}
+        ],
+        where: { userId: userId }
+      }
+    });
   };
   Post.prototype.getPoints = function(){
     console.log(this.votes);

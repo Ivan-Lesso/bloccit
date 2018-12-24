@@ -45,12 +45,17 @@ module.exports = {
             .then((comments) => {
    // #7
               result["comments"] = comments;
-              callback(null, result);
+              Post.scope({method: ["favoritedPosts", id]}).all()
+              .then((favoritedPosts) => {
+                result["favoritedPosts"] = favoritedPosts;
+                callback(null, result);
+              });
             })
             .catch((err) => {
               callback(err);
             })
           })
+
         }
       })
     }
